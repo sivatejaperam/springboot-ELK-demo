@@ -1,0 +1,17 @@
+filebeat.inputs:
+  - type: filestream
+    enabled: true
+    paths:
+      - /var/log/springboot/*.log
+
+setup.template.enabled: true
+setup.ilm.enabled: false
+setup.template.name: "springboot-logs"
+setup.template.pattern: "springboot-logs-*"
+
+output.elasticsearch:
+  hosts: ["http://elasticsearch:9200"]
+  index: "springboot-logs-%{+yyyy.MM.dd}"
+
+logging.level: debug
+logging.to_stdout: true
